@@ -1,0 +1,497 @@
+<div class="apidocDiv">
+<style>
+/*csslint
+*/
+.apidocDiv {
+    background: #fff;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.apidocDiv a[href] {
+    color: #33f;
+    font-weight: bold;
+    text-decoration: none;
+}
+.apidocDiv a[href]:hover {
+    text-decoration: underline;
+}
+.apidocCodeCommentSpan {
+    background: #bbf;
+    color: #000;
+    display: block;
+}
+.apidocCodeKeywordSpan {
+    color: #d00;
+    font-weight: bold;
+}
+.apidocCodePre {
+    background: #eef;
+    border: 1px solid;
+    color: #777;
+    padding: 5px;
+    white-space: pre-wrap;
+}
+.apidocFooterDiv {
+    margin-top: 20px;
+    text-align: center;
+}
+.apidocModuleLi {
+    margin-top: 10px;
+}
+.apidocSectionDiv {
+    border-top: 1px solid;
+    margin-top: 20px;
+}
+.apidocSignatureSpan {
+    color: #777;
+    font-weight: bold;
+}
+</style>
+<h1>api documentation for
+    <a
+
+        href="https://github.com/yuanchuan/node-watch#readme"
+
+    >node-watch (v0.5.2)</a>
+</h1>
+<h4>A neat fs.watch wrapper</h4>
+<div class="apidocSectionDiv"><a
+    href="#apidoc.tableOfContents"
+    id="apidoc.tableOfContents"
+><h1>table of contents</h1></a><ol>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.node-watch">module node-watch</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.node-watch.node-watch">
+            function <span class="apidocSignatureSpan"></span>node-watch
+            <span class="apidocSignatureSpan">(fpath, options, fn)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.node-watch.toString">
+            function <span class="apidocSignatureSpan">node-watch.</span>toString
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">node-watch.</span>is</span>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.node-watch.is">module node-watch.is</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.node-watch.is.array">
+            function <span class="apidocSignatureSpan">node-watch.is.</span>array
+            <span class="apidocSignatureSpan">(item)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.node-watch.is.directory">
+            function <span class="apidocSignatureSpan">node-watch.is.</span>directory
+            <span class="apidocSignatureSpan">(name)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.node-watch.is.exists">
+            function <span class="apidocSignatureSpan">node-watch.is.</span>exists
+            <span class="apidocSignatureSpan">(name)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.node-watch.is.file">
+            function <span class="apidocSignatureSpan">node-watch.is.</span>file
+            <span class="apidocSignatureSpan">(name)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.node-watch.is.func">
+            function <span class="apidocSignatureSpan">node-watch.is.</span>func
+            <span class="apidocSignatureSpan">(item)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.node-watch.is.nil">
+            function <span class="apidocSignatureSpan">node-watch.is.</span>nil
+            <span class="apidocSignatureSpan">(item)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.node-watch.is.sameFile">
+            function <span class="apidocSignatureSpan">node-watch.is.</span>sameFile
+            <span class="apidocSignatureSpan">(a, b)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.node-watch.is.symbolicLink">
+            function <span class="apidocSignatureSpan">node-watch.is.</span>symbolicLink
+            <span class="apidocSignatureSpan">(name)</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+</ol></div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.node-watch" id="apidoc.module.node-watch">module node-watch</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.node-watch.node-watch" id="apidoc.element.node-watch.node-watch">
+        function <span class="apidocSignatureSpan"></span>node-watch
+        <span class="apidocSignatureSpan">(fpath, options, fn)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function watch(fpath, options, fn) {
+  var watcher = new Watcher();
+
+  if (is.array(fpath)) {
+    return composeWatcher(unique(fpath).map(function(f) {
+      return watch(f, options, fn);
+    }));
+  };
+
+  if (!is.exists(fpath)) {
+    watcher.emit(&#x27;error&#x27;,
+      new Error(fpath + &#x27; does not exist.&#x27;)
+    );
+  }
+
+  if (is.func(options)) {
+    fn = options;
+    options = {};
+  }
+
+  if (arguments.length &#x3c; 2) {
+    options = {};
+  }
+
+  if (is.file(fpath)) {
+    watcher.watchFile(fpath, options, fn);
+  }
+
+  else if (is.directory(fpath)) {
+    watcher.watchDirectory(fpath, options, fn);
+  }
+
+  return watcher.expose();
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.node-watch.toString" id="apidoc.element.node-watch.toString">
+        function <span class="apidocSignatureSpan">node-watch.</span>toString
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">toString = function () {
+    return text;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+function TempStack() {
+this.stack = [];
+}
+
+TempStack.prototype = {
+create: function(type, base) {
+  var name = path.join(base,
+    &#x27;node-watch-&#x27; + Math.random().<span class="apidocCodeKeywordSpan">toString</span>(16).substr(2)
+  );
+  this.stack.push({ name: name, type: type });
+  return name;
+},
+write: function(/* file */) {
+  for (var i = 0; i &#x3c; arguments.length; ++i) {
+    fs.writeFileSync(arguments[i], &#x27; &#x27;);
+...</pre></li>
+    </ul>
+
+
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.node-watch.is" id="apidoc.module.node-watch.is">module node-watch.is</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.node-watch.is.array" id="apidoc.element.node-watch.is.array">
+        function <span class="apidocSignatureSpan">node-watch.is.</span>array
+        <span class="apidocSignatureSpan">(item)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">array = function (item) {
+  return Array.isArray(item);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+var hasNativeRecursive = require(&#x27;./has-native-recursive&#x27;);
+var is = require(&#x27;./is&#x27;);
+
+var EVENT_UPDATE = &#x27;update&#x27;;
+var EVENT_REMOVE = &#x27;remove&#x27;;
+
+function makeArray(arr, offset) {
+return is.<span class="apidocCodeKeywordSpan">array</span>(arr)
+  ? arr : [].slice.call(arr, offset || 0);
+}
+
+function hasDup(arr) {
+return makeArray(arr).some(function(v, i, self) {
+  return self.indexOf(v) !== i;
+});
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.node-watch.is.directory" id="apidoc.element.node-watch.is.directory">
+        function <span class="apidocSignatureSpan">node-watch.is.</span>directory
+        <span class="apidocSignatureSpan">(name)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">directory = function (name) {
+  return is.exists(name)
+    ? fs.statSync(name).isDirectory() : false;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+  var temp;
+  while (temp = this.stack.pop()) {
+    var type = temp.type;
+    var name = temp.name;
+    if (type == &#x27;file&#x27; &#x26;&#x26; is.file(name)) {
+      fs.unlinkSync(name);
+    }
+    else if (type == &#x27;dir&#x27; &#x26;&#x26; is.<span class="apidocCodeKeywordSpan">directory</span>(name)) {
+      fs.rmdirSync(name);
+    }
+  }
+}
+finally {
+  if (is.func(fn)) fn();
+}
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.node-watch.is.exists" id="apidoc.element.node-watch.is.exists">
+        function <span class="apidocSignatureSpan">node-watch.is.</span>exists
+        <span class="apidocSignatureSpan">(name)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">exists = function (name) {
+  return fs.existsSync(name);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+func: function(item) {
+  return typeof item === &#x27;function&#x27;;
+},
+exists: function(name) {
+  return fs.existsSync(name);
+},
+file: function(name) {
+  return is.<span class="apidocCodeKeywordSpan">exists</span>(name)
+    ? fs.statSync(name).isFile() : false;
+},
+sameFile: function(a, b) {
+  return path.resolve(a) == path.resolve(b);
+},
+directory: function(name) {
+  return is.exists(name)
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.node-watch.is.file" id="apidoc.element.node-watch.is.file">
+        function <span class="apidocSignatureSpan">node-watch.is.</span>file
+        <span class="apidocSignatureSpan">(name)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">file = function (name) {
+  return is.exists(name)
+    ? fs.statSync(name).isFile() : false;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+},
+cleanup: function(fn) {
+  try {
+    var temp;
+    while (temp = this.stack.pop()) {
+      var type = temp.type;
+      var name = temp.name;
+      if (type == &#x27;file&#x27; &#x26;&#x26; is.<span class="apidocCodeKeywordSpan">file</span>(name)) {
+        fs.unlinkSync(name);
+      }
+      else if (type == &#x27;dir&#x27; &#x26;&#x26; is.directory(name)) {
+        fs.rmdirSync(name);
+      }
+    }
+  }
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.node-watch.is.func" id="apidoc.element.node-watch.is.func">
+        function <span class="apidocSignatureSpan">node-watch.is.</span>func
+        <span class="apidocSignatureSpan">(item)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">func = function (item) {
+  return typeof item === &#x27;function&#x27;;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+        }
+        else if (type == &#x27;dir&#x27; &#x26;&#x26; is.directory(name)) {
+          fs.rmdirSync(name);
+        }
+      }
+    }
+    finally {
+      if (is.<span class="apidocCodeKeywordSpan">func</span>(fn)) fn();
+    }
+  }
+};
+
+var pending = false;
+
+module.exports = function hasNativeRecursive(fn) {
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.node-watch.is.nil" id="apidoc.element.node-watch.is.nil">
+        function <span class="apidocSignatureSpan">node-watch.is.</span>nil
+        <span class="apidocSignatureSpan">(item)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">nil = function (item) {
+  return (item === null) || (item === undefined);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+  getMessages(cache).forEach(function(msg) {
+    fn.apply(null, msg);
+  });
+  timer = null;
+  cache = [];
+}
+return function(evt, name) {
+  if (is.<span class="apidocCodeKeywordSpan">nil</span>(name)) {
+    name = &#x27;&#x27;;
+  }
+  cache.push(
+    path.join(info.fpath, name)
+  );
+  if (!timer) {
+    timer = setTimeout(handle, delay || 200);
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.node-watch.is.sameFile" id="apidoc.element.node-watch.is.sameFile">
+        function <span class="apidocSignatureSpan">node-watch.is.</span>sameFile
+        <span class="apidocSignatureSpan">(a, b)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">sameFile = function (a, b) {
+  return path.resolve(a) == path.resolve(b);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+
+var watcher = fs.watch(parent, opts);
+this.add(watcher, {
+  type: &#x27;file&#x27;,
+  fpath: parent,
+  options: opts,
+  compareName: function(n) {
+    return is.<span class="apidocCodeKeywordSpan">sameFile</span>(n, file);
+  }
+});
+
+if (is.func(fn)) {
+  if (fn.length == 1) deprecateWarning();
+  this.on(&#x27;change&#x27;, fn);
+}
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.node-watch.is.symbolicLink" id="apidoc.element.node-watch.is.symbolicLink">
+        function <span class="apidocSignatureSpan">node-watch.is.</span>symbolicLink
+        <span class="apidocSignatureSpan">(name)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">symbolicLink = function (name) {
+  return is.exists(name)
+    ? fs.lstatSync(name).isSymbolicLink() : false;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocFooterDiv">
+    [ this document was created with
+    <a href="https://github.com/kaizhu256/node-utility2" target="_blank">utility2</a>
+    ]
+</div>
+</div>
