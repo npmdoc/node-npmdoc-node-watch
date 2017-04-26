@@ -72,15 +72,6 @@
 
         <li>
 
-            <a class="apidocElementLiA" href="#apidoc.element.node-watch.toString">
-            function <span class="apidocSignatureSpan">node-watch.</span>toString
-            <span class="apidocSignatureSpan">()</span>
-            </a>
-
-        </li>
-
-        <li>
-
             <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">node-watch.</span>is</span>
 
         </li>
@@ -211,37 +202,6 @@
   return watcher.expose();
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
-    </ul>
-
-
-
-    <h2>
-        <a href="#apidoc.element.node-watch.toString" id="apidoc.element.node-watch.toString">
-        function <span class="apidocSignatureSpan">node-watch.</span>toString
-        <span class="apidocSignatureSpan">()</span>
-        </a>
-    </h2>
-    <ul>
-    <li>description and source-code<pre class="apidocCodePre">toString = function () {
-    return text;
-}</pre></li>
-    <li>example usage<pre class="apidocCodePre">...
-function TempStack() {
-this.stack = [];
-}
-
-TempStack.prototype = {
-create: function(type, base) {
-  var name = path.join(base,
-    &#x27;node-watch-&#x27; + Math.random().<span class="apidocCodeKeywordSpan">toString</span>(16).substr(2)
-  );
-  this.stack.push({ name: name, type: type });
-  return name;
-},
-write: function(/* file */) {
-  for (var i = 0; i &#x3c; arguments.length; ++i) {
-    fs.writeFileSync(arguments[i], &#x27; &#x27;);
-...</pre></li>
     </ul>
 
 
