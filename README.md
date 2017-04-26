@@ -1,6 +1,6 @@
 # npmdoc-node-watch
 
-#### api documentation for  [node-watch (v0.5.2)](https://github.com/yuanchuan/node-watch#readme)  [![npm package](https://img.shields.io/npm/v/npmdoc-node-watch.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-node-watch) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-node-watch.svg)](https://travis-ci.org/npmdoc/node-npmdoc-node-watch)
+#### basic api documentation for  [node-watch (v0.5.2)](https://github.com/yuanchuan/node-watch#readme)  [![npm package](https://img.shields.io/npm/v/npmdoc-node-watch.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-node-watch) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-node-watch.svg)](https://travis-ci.org/npmdoc/node-npmdoc-node-watch)
 
 #### A neat fs.watch wrapper
 
@@ -62,7 +62,8 @@
         "test": "mocha"
     },
     "url": "https://github.com/yuanchuan/node-watch",
-    "version": "0.5.2"
+    "version": "0.5.2",
+    "bin": {}
 }
 ```
 
